@@ -203,10 +203,13 @@ function secretNumber() {
 */
 
 function timeOutCounter() {
-  for (var i = 0; i <= 5; i++) {
+  function count (i) {
     setTimeout(function() {
-      console.log(i);
+    console.log(i);
     }, i * 1000);
+  }
+  for (var i = 0; i <= 5; i++) {
+    count(i)
   }
 }
 timeOutCounter();
