@@ -93,19 +93,22 @@ function makeCounter(){
   http://stackoverflow.com/questions/17776940/javascript-module-pattern-with-example?answertab=votes#tab-top
 */
 
-function counterFactory(value) {
-  
-
+let counterFactory = (function (value) {
   return {
-
-  };
-}
+    inc: function () {
+      return value += 1
+    },
+    dec: function () {
+      return value -= 1
+    }
+  }
+})
 
 counter = counterFactory(10);
-// counter.inc() // 11
-// counter.inc() // 12
-// counter.inc() // 13
-// counter.dec() // 12
+counter.inc() // 11
+counter.inc() // 12
+counter.inc() // 13
+counter.dec() // 12
 
 
 
@@ -119,11 +122,9 @@ counter = counterFactory(10);
 
 function motivation( firstname, lastname ) {
   var welcomeText = "You're doing awesome, keep it up";
-
-  // code message function here.
-
-  //Uncommment this to return the value of your message function
-  //return message;
+  return function() {
+    return welcomeText + ` ${firstname} ${lastname}.`
+  }
 }
 
 var greeting = motivation('Billy', 'Bob'); // 'You're doing awesome keep it up Billy Bob.
@@ -151,7 +152,9 @@ var module = (function() {
   // Anything that is being returned is made public and can be invoked from
   // outside our lexical scope
   return {
-    // Code here.
+    publicMethod: function () {
+      return privateMethod()
+    }
   };
 })();
 
@@ -170,7 +173,12 @@ function secretNumber() {
   var secret = 143;
 
   return {
-    // Code here
+    addToSecret: function(val) {
+      return secret += val
+    },
+    takeAwayFromSecret: function (val) {
+      return secret -= val
+    }
   };
 }
 
